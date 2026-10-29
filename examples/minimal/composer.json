@@ -1,0 +1,12 @@
+{
+  "require": {
+    "watchtowerobservability/laravel": "*",
+    "laravel/framework": "^11.0||^12.0"
+  },
+  "repositories": [
+    { "type": "path", "url": "../.." },
+    { "type": "vcs", "url": "https://github.com/watchtowerobservability/watchtower-php" }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

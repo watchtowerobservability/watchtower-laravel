@@ -37,7 +37,7 @@ final class WatchtowerServiceProvider extends ServiceProvider
         $tracer = $provider->getTracer(self::TRACER);
         $reporter = $this->app->make(Reporter::class);
 
-        $this->app->callAfterResolving(ExceptionHandler::class, function ($handler) use ($reporter): void {
+        $this->callAfterResolving(ExceptionHandler::class, function ($handler) use ($reporter): void {
             if (method_exists($handler, 'reportable')) {
                 $handler->reportable(static function (Throwable $e) use ($reporter): void {
                     $reporter->capture($e);

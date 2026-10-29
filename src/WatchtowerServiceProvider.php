@@ -39,14 +39,14 @@ final class WatchtowerServiceProvider extends ServiceProvider
 
         $this->callAfterResolving(ExceptionHandler::class, function ($handler) use ($reporter): void {
             if (method_exists($handler, 'reportable')) {
-                $handler->reportable(static function (Throwable $e) use ($reporter): void {
+                $handler->reportable(function (Throwable $e) use ($reporter): void {
                     $reporter->capture($e);
                 });
             }
         });
 
         // `'driver' => 'watchtower'` in config/logging.php
-        $this->app->make('log')->extend('watchtower', static fn ($app, array $c) => new Logger('watchtower', [
+        $this->app->make('log')->extend('watchtower', fn ($app, array $c) => new Logger('watchtower', [
             new WatchtowerHandler($reporter, Level::fromName(ucfirst(strtolower($c['level'] ?? 'error')))),
         ]));
 
